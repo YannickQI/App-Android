@@ -1,0 +1,113 @@
+class MainActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContent {
+            TesteManhaTheme {
+                // A surface container using the 'background' color from the theme
+                Surface(
+                    modifier = Modifier.fillMaxSize(),
+                    color = MaterialTheme.colors.background
+                ){
+                    Conversation(massage = listaMassage)
+                }
+            }
+        }
+    }
+}
+//fim da activity
+
+//criando classe para patronizar as mensagens
+data class Massage(
+    var avatar : Int,
+    var author : String,
+    var body : String
+)
+
+@Composable
+fun MassageCarte(msg : Massage) {
+    Surface(modifier = Modifier.padding(15.dp)) {
+        Row {
+           Image(
+               painter =  painterResource(id = msg.avatar),
+               contentDescription = null,
+               modifier = Modifier
+                   .size(50.dp)
+                   .clip(CircleShape)
+           )
+
+            Spacer(modifier = Modifier.width(5.dp))
+
+            var expansao  by remember {
+                mutableStateOf(false)
+            }
+
+            Column(modifier = Modifier.clickable { expansao = !expansao }) {
+                Text(
+                    text = msg.author,
+                    style = MaterialTheme.typography.h4
+                )
+                Spacer(modifier = Modifier.height(5.dp))
+
+                Surface(
+                    color = if (expansao)MaterialTheme.colors.secondary
+                    else MaterialTheme.colors.primary,
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text(
+                        text = msg.body,
+                        maxLines = if(expansao) Int.MAX_VALUE else 1,
+                        modifier = Modifier.padding(10.dp)
+                    )
+
+                }
+            }
+        }
+    }
+}
+
+//lista de mensagen
+var listaMassage = mutableListOf(
+    Massage(
+        R.drawable.ic_launcher_background,
+        "Maria",
+        "olá \nbom dia",
+    ),
+    Massage(
+        R.drawable.ic_launcher_background,
+        "Joâo",
+        "olá \nbom tarde",
+    ),
+    Massage(
+        R.drawable.ic_launcher_background,
+        "Teresa",
+        "olá \nbom noite",
+    )
+)
+
+@Composable
+fun Conversation(massage: List<Massage>){
+    LazyColumn {
+        items (massage) {
+            eachMsg -> MassageCarte(msg = eachMsg)
+        }
+    }
+}
+
+@Preview(
+    name = "Maria",
+    showBackground = true,
+    uiMode = Configuration.UI_MODE_NIGHT_YES
+)
+
+@Composable
+fun TesteManha() {
+    TesteManhaTheme {
+        Surface(
+            modifier = Modifier.fillMaxSize(),
+            color = MaterialTheme.colors.background
+        ) {
+            //MassageCarte(listaMassage[0])
+            Conversation(listaMassage)
+        }
+    }
+}

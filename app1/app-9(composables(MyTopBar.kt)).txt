@@ -1,0 +1,41 @@
+package com.qi.aulamanha9.composables
+
+import androidx.compose.material3.CenterAlignedTopAppBar
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
+import com.qi.aulamanha9.ui.theme.AulaManha9Theme
+
+@Composable
+fun MyTopBar(
+    modifier: Modifier = Modifier
+) {
+    CenterAlignedTopAppBar (
+        colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
+            containerColor = Color(0xFF94EB5F),
+            titleContentColor = Color(0xFF831212)
+
+        ),
+
+        title = {
+                Text(
+                    text = "Bom dia",
+                    fontWeight = FontWeight(600)
+                )
+                }
+    )
+}
+
+@Preview
+@Composable
+fun MyTopBarPreview() {
+    AulaManha9Theme {
+        MyTopBar()
+    }
+
+}

@@ -1,0 +1,66 @@
+package com.qi.aulamanha8.composables
+
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.*
+import androidx.compose.material3.*
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.tooling.preview.Preview
+import com.qi.aulamanha8.ui.theme.AulaManha8Theme
+
+@Composable
+fun MyBar(
+    modifier: Modifier = Modifier
+) {
+    MediumTopAppBar(
+        colors = TopAppBarDefaults.mediumTopAppBarColors(
+            containerColor = Color.Gray,
+            titleContentColor = Color.White,
+            navigationIconContentColor = Color.White,
+            actionIconContentColor = Color.White
+        ),
+        title = { Text(text = "Numero-1")},
+        navigationIcon = {
+                         IconButton(
+                             onClick = {},
+                             content = {
+                                 Icon(
+                                     imageVector = Icons.Rounded.Menu,
+                                     contentDescription = "Menu"
+                                 )
+                             }
+                             )
+        },
+        actions = {
+            IconButton(
+                onClick = {},
+                content = {
+                    Icon(
+                        imageVector = Icons.Rounded.AccountBox,
+                        contentDescription = null
+                    )
+                }
+            )
+
+            IconButton(
+                onClick = {},
+                content = {
+                    Icon(
+                        imageVector = Icons.Rounded.PlayArrow,
+                        contentDescription = null
+                    )
+                }
+            )
+        }
+
+    )
+}
+
+@Preview
+@Composable
+fun TopBarPreview() {
+    AulaManha8Theme {
+        MyBar()
+    }
+}

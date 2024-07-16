@@ -1,0 +1,46 @@
+package com.qi.aulamanha9.composables
+
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Home
+import androidx.compose.material3.*
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.tooling.preview.Preview
+import com.qi.aulamanha9.ui.theme.AulaManha9Theme
+
+@Composable
+fun MyBottomBar(
+    modifier: Modifier = Modifier
+) {
+    NavigationBar(
+        containerColor = Color(0xFF94EB5F),
+        contentColor = Color(0xFF831212),
+    ) {
+        TextButton(
+            onClick = {},
+            content = {
+                Text(text = "Click")
+            }
+        )
+
+        IconButton(
+            onClick = {},
+            content = {
+                Icon(
+                    imageVector = Icons.Rounded.Home,
+                    contentDescription = null
+                )
+            }
+        )
+    }
+}
+
+@Preview
+@Composable
+fun MyBottmBarPreview() {
+    AulaManha9Theme {
+        MyBottomBar()
+    }
+
+}

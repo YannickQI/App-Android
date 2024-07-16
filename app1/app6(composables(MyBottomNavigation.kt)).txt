@@ -1,0 +1,37 @@
+package com.qi.aulamanha6.composables
+
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Add
+import androidx.compose.material.icons.rounded.Call
+import androidx.compose.material.icons.rounded.Person
+import androidx.compose.material3.Icon
+import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarItem
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+
+@Composable
+fun MyBottomNavigation(
+    modifier: Modifier = Modifier
+){
+    NavigationBar() {
+        NavigationBarItem(
+            selected = false,
+            onClick = {},
+            icon = { Icon(imageVector = Icons.Rounded.Person, contentDescription = null)}
+        )
+
+        NavigationBarItem(
+            selected = false,
+            onClick = {},
+            icon = { Icon(imageVector = Icons.Rounded.Call, contentDescription = null)}
+        )
+
+        NavigationBarItem(
+            selected = false,
+            onClick = {},
+            icon = { Icon(imageVector = Icons.Rounded.Add, contentDescription = null)}
+        )
+
+    }//fim NavigationBar
+}

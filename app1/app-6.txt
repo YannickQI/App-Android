@@ -1,0 +1,121 @@
+package com.qi.aulamanha6
+
+import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.*
+import androidx.compose.material3.*
+import androidx.compose.material3.windowsizeclass.WindowSizeClass
+import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
+import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
+import com.qi.aulamanha6.composables.MyBottomNavigation
+import com.qi.aulamanha6.composables.MySideNavigation
+import com.qi.aulamanha6.ui.theme.AulaManha6Theme
+
+class MainActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContent {
+            AulaManha6Theme {
+
+            }
+        }
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun MyAppPortrait(
+    modifier: Modifier = Modifier
+){
+    Scaffold(
+        bottomBar = { MyBottomNavigation() }
+    ) {
+        padding -> Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center,
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(padding)
+        ) {
+            Text(text = "oxi?")
+        }
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun MyAppLandscape(
+    modifier: Modifier = Modifier
+){
+    Scaffold() {
+            padding -> Row {
+            MySideNavigation()
+
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center,
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(padding)
+            ) {
+                Text(text = "oxi?")
+            }
+        }
+    }
+}
+
+@Composable
+fun MyApp(
+    modifier: Modifier = Modifier,
+    windowSize: WindowSizeClass
+){
+    when(windowSize.widthSizeClass){
+        (WindowWidthSizeClass.Compact) -> MyAppPortrait()
+        (WindowWidthSizeClass.Expanded) -> MyAppLandscape()
+    }
+}
+
+@Preview(showBackground = true, heightDp = 300)
+@Composable
+fun DefaultPreview1() {
+    AulaManha6Theme {
+        MySideNavigation()
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun DefaultPreview2() {
+    AulaManha6Theme {
+        MyBottomNavigation()
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun DefaultPreview3() {
+    AulaManha6Theme {
+        MyAppPortrait()
+    }
+}
+
+@Preview(showBackground = true, heightDp = 300, widthDp = 400)
+@Composable
+fun DefaultPreview4() {
+    AulaManha6Theme {
+        MyAppLandscape()
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun DefaultPreview5() {
+    AulaManha6Theme {
+        MyApp()
+    }
+}

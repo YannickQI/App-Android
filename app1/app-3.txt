@@ -1,0 +1,189 @@
+package com.qi.aulamanha3
+
+import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AccountBox
+import androidx.compose.material.icons.filled.Person
+import androidx.compose.material3.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Color.Companion.Green
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import com.qi.aulamanha3.ui.theme.AulaManha3Theme
+
+class MainActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContent {
+            AulaManha3Theme {
+
+            }
+        }
+    }
+}
+
+@Composable
+fun MyText(
+    pass: Boolean = false,
+    icon: ImageVector,
+    key: KeyboardType = KeyboardType.Text,
+    modifier: Modifier = Modifier,
+){
+    var text by remember {
+        mutableStateOf(TextFieldValue(""))
+}
+    var showPass by remember {
+        mutableStateOf(false)
+    }
+
+    Surface(
+        color = MaterialTheme.colorScheme.onSurface,
+        shape = MaterialTheme.shapes.medium
+    ) {
+        Row() {
+            TextField(
+                value = text,
+                onValueChange = { text = it },
+                leadingIcon = {
+                    Icon(
+                        imageVector = icon,
+                        contentDescription = null,
+                        modifier =
+                        if (!pass) modifier.size(20.dp)
+                        else modifier
+                            .size(20.dp)
+                            .clickable { showPass = !showPass }
+                    )
+                },
+                //tipo de texto
+                keyboardOptions = KeyboardOptions(
+                    keyboardType = key
+                ),
+                //esconder texto
+                visualTransformation =
+                if (pass || showPass)
+                VisualTransformation.None
+                else PasswordVisualTransformation('#'),
+                textStyle = TextStyle(
+                    fontSize = 20.sp
+                )
+            )
+        }
+    }
+}
+
+@Composable
+fun App(
+    modifier: Modifier = Modifier
+){
+    var screen by remember {
+        mutableStateOf(0)
+    }
+
+    when(screen){
+        0 -> Greeting(login = {screen = 1})
+        1 -> Login(voltar = {screen = 0})
+    }
+}
+
+@Composable
+fun Login(
+    voltar: () -> Unit,
+    modifier: Modifier = Modifier
+){
+    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+        Text(text = stringResource(id = R.string.welcome))
+    }
+
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+
+    ) {
+        Text(text = "NOME:")
+        MyText(icon = Icons.Default.Person)
+
+        Spacer(modifier = Modifier.height(20.dp))
+
+        Text(text = "SENHA:")
+        MyText(
+            pass = true,
+            icon = Icons.Default.AccountBox,
+            key = KeyboardType.Password
+        )
+
+        Spacer(modifier = Modifier.height(10.dp))
+
+        Button(onClick = {voltar()}) {
+            Text(text = "VOLTAR")
+
+        }
+
+    }
+
+}
+
+@Composable
+fun Greeting(
+    login: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+        Text(
+            text = stringResource(id = R.string.app_name),
+            color = Color.Blue,
+        )
+
+    }
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,//alinha horizontalmente
+        verticalArrangement = Arrangement.Center,//alinha verticalmente
+        modifier = Modifier.fillMaxSize()
+    ) {
+
+        
+        Text(
+            text = stringResource(id = R.string.welcome),
+            color = Color.Red
+        )
+
+        Spacer(modifier = Modifier.height(10.dp))
+
+        Button(onClick = {login()}) {
+            Text(
+                text = stringResource(id = R.string.login),
+                color = Color.Yellow
+            )
+
+        }
+
+    }
+}
+
+@Preview(showBackground = true, widthDp = 320, heightDp = 480)
+@Composable
+fun DefaultPreview() {
+    AulaManha3Theme {
+        App()
+    }
+}
